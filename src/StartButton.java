@@ -23,7 +23,7 @@ public class StartButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e){
         board.createPuzzleBoard();
         frame.update();
-        this.setText("Restart");
+        this.setText("Reshuffle");
         time.start();
 
         //--------------TESTING---------------

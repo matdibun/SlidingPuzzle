@@ -12,9 +12,10 @@ public class PuzzleFrame extends JFrame {
         board = b;
         button_board = new PuzzleButton[4][4];
 
-        setTitle("PuzzleFrame");
+        setTitle("Sliding Puzzle Game");
         setLayout(new BorderLayout());
         setSize(400, 400);
+        //setJMenuBar(new Menu_Bar());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();

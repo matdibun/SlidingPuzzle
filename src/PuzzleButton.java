@@ -32,9 +32,18 @@ public class PuzzleButton extends JButton implements ActionListener {
         }
         if (board.gameOver()){
             frame.finish();
-            name = JOptionPane.showInputDialog("Input your name");
-            leaderboard = new Leaderboard(name, time);
             time.stop();
+
+            String input = JOptionPane.showInputDialog("Input your name");
+            if(input != null){
+                name = input;
+            }else{
+                name = "Unknown";
+            }
+
+            leaderboard = new Leaderboard();
+            leaderboard.addScore(name, time.getTime());
+
             time.reset();
 
         }
