@@ -4,6 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameMenu extends JFrame {
+    //GameMenuController controller;
+    GameMenu gameMenu;
+    SlidePuzzleBoard slidePuzzleBoard;
+    PuzzleFrame puzzleFrame;
+    Leaderboard leaderboard;
 
     // Constructor for the Game Menu
     public GameMenu() {
@@ -42,6 +47,8 @@ public class GameMenu extends JFrame {
 
         // Add the panel to the JFrame
         add(panel, BorderLayout.CENTER);
+
+        //controller = new GameMenuController();
 
         // Action listeners for buttons
         startButton.addActionListener(new ActionListener() {

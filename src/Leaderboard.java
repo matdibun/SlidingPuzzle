@@ -73,19 +73,17 @@ import java.util.List;
 
 public class Leaderboard extends JFrame {
 
-    private Font font;
+    private LeaderboardModel leaderboardModel;
+
     private JTextArea leaderboardTextArea;
     private List<String> leaderboardEntries;
     private JButton mainMenuButton;
-    private String filePath = "ranking.txt";
 
     public Leaderboard() {
         setTitle("Leaderboard");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        font = new Font("Monospaced", Font.PLAIN, 18);
 
         leaderboardTextArea = new JTextArea();
         leaderboardTextArea.setEditable(false);
@@ -94,7 +92,7 @@ public class Leaderboard extends JFrame {
         leaderboardEntries = new ArrayList<>();
 
         // Load existing leaderboard entries from file
-        loadLeaderboard();
+        leaderboardModel.loadLeaderboard();
 
         // Display leaderboard
         displayLeaderboard();
@@ -114,66 +112,76 @@ public class Leaderboard extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    // TODO: move add, load, save to Model class
+
     // Add a new score to the leaderboard
-    public void addScore(String name, String time) {
-        int count  = 1;
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            while (reader.readLine() != null) {
-                count++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        leaderboardEntries.add(count + ". \t" + name + "\t\t" + time);
-        saveLeaderboard();
-        displayLeaderboard();
-    }
+//    public void addScore(String name, String time) {
+//        int count  = 1;
+//        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+//            while (reader.readLine() != null) {
+//                count++;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        leaderboardEntries.add(count + ". \t" + name + "\t\t" + time);
+//        saveLeaderboard();
+//        displayLeaderboard();
+//    }
 
     // Load leaderboard from the file
-    private void loadLeaderboard() {
-        File file = new File(filePath);
-        try {
-            if (file.exists()) {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    leaderboardEntries.add(line);
-                }
-                reader.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void loadLeaderboard() {
+//        File file = new File(filePath);
+//        try {
+//            if (file.exists()) {
+//                BufferedReader reader = new BufferedReader(new FileReader(file));
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    leaderboardEntries.add(line);
+//                }
+//                reader.close();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // Save leaderboard to the file
-    private void saveLeaderboard() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            for (String entry : leaderboardEntries) {
-                writer.write(entry);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void saveLeaderboard() {
+//        try {
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+//            for (String entry : leaderboardEntries) {
+//                writer.write(entry);
+//                writer.newLine();
+//            }
+//            writer.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    // TODO: new class for displayLeaderboard           DONE
 
     // Display the leaderboard in the text area
-    private void displayLeaderboard() {
+    public void displayLeaderboard() {
         leaderboardTextArea.setText("");
         for (String entry : leaderboardEntries) {
             leaderboardTextArea.append(entry + "\n");
         }
-        leaderboardTextArea.setFont(font);
+        leaderboardTextArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
     }
+
+    // TODO: new class for openGameMenu
 
     // Method to return to the GameMenu
     private void openGameMenu() {
         GameMenu gameMenu = new GameMenu();  // Create the GameMenu instance
         gameMenu.setVisible(true);  // Show the GameMenu
         this.setVisible(false);  // Hide the Leaderboard window
+    }
+
+    public LeaderboardModel getLeaderboardModel() {
+        return leaderboardModel;
     }
 
 }

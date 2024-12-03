@@ -42,7 +42,7 @@ public class PuzzleButton extends JButton implements ActionListener {
             }
 
             leaderboard = new Leaderboard();
-            leaderboard.addScore(name, time.getTime());
+            leaderboard.getLeaderboardModel().addScore(name, time.getTime());
 
             time.reset();
 

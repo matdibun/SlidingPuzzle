@@ -28,5 +28,6 @@ TODO UI:1. Leaderboard: (timer not shown);   problem: this.timer > null     DONE
         6.
 
 TODO BUG FIX:   1. Player can click tiles before start game                 DEBUGGING PROCESS (DONT TERMINATE YET)
+                2. Delete Leaderboard_Pane package
 
 */
