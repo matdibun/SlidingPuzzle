@@ -6,6 +6,7 @@ public class SlidePuzzleBoard {
     private PuzzlePiece[][] initialState;
 
     public SlidePuzzleBoard() {
+
         board = new PuzzlePiece[4][4];
 
         int counter = 1;
@@ -70,14 +71,14 @@ public class SlidePuzzleBoard {
         for (int i = 0;i<15;i++){
             tiles[i] = i+1;
         }
-        //do {
+        do {
             for (int i = tiles.length - 1; i > 0; i--) {
                 int j = (int) (Math.random() * (i + 1));
                 int temp = tiles[i];
                 tiles[i] = tiles[j];
                 tiles[j] = temp;
             }
-        //}while(!isSolvable(tiles));
+        }while(!isSolvable(tiles));
 
         int index = 0;
         for (int row = 0; row < 4; row++) {
@@ -139,4 +140,3 @@ public class SlidePuzzleBoard {
     }
 
 }
-

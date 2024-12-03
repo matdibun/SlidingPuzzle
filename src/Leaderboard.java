@@ -73,15 +73,19 @@ import java.util.List;
 
 public class Leaderboard extends JFrame {
 
+    private Font font;
     private JTextArea leaderboardTextArea;
     private List<String> leaderboardEntries;
     private JButton mainMenuButton;
+    private String filePath = "ranking.txt";
 
     public Leaderboard() {
         setTitle("Leaderboard");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        font = new Font("Monospaced", Font.PLAIN, 18);
 
         leaderboardTextArea = new JTextArea();
         leaderboardTextArea.setEditable(false);
@@ -112,14 +116,22 @@ public class Leaderboard extends JFrame {
 
     // Add a new score to the leaderboard
     public void addScore(String name, String time) {
-        leaderboardEntries.add(name + "\t" + time);
+        int count  = 1;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            while (reader.readLine() != null) {
+                count++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        leaderboardEntries.add(count + ". \t" + name + "\t\t" + time);
         saveLeaderboard();
         displayLeaderboard();
     }
 
     // Load leaderboard from the file
     private void loadLeaderboard() {
-        File file = new File("ranking.txt");
+        File file = new File(filePath);
         try {
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -137,7 +149,7 @@ public class Leaderboard extends JFrame {
     // Save leaderboard to the file
     private void saveLeaderboard() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("ranking.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (String entry : leaderboardEntries) {
                 writer.write(entry);
                 writer.newLine();
@@ -154,6 +166,7 @@ public class Leaderboard extends JFrame {
         for (String entry : leaderboardEntries) {
             leaderboardTextArea.append(entry + "\n");
         }
+        leaderboardTextArea.setFont(font);
     }
 
     // Method to return to the GameMenu
